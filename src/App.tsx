@@ -6,10 +6,10 @@ import { routes } from './lib/routes'
 import CarAddView from './modules/cars/add/CarAddView'
 import CarEditView from './modules/cars/edit/CarEditView'
 import CarSingleView from './modules/cars/single/CarSingleView'
-import ReservationListView from './modules/reservartions/list/ReservationListView'
-import ReservationAddView from './modules/reservartions/add/CarAddView'
-import ReservationEditView from './modules/reservartions/edit/ReservationEditView'
-import ReservationSingleView from './modules/reservartions/single/ReservationSingleView'
+import ReservationListView from './modules/reservations/list/ReservationListView'
+import ReservationAddView from './modules/reservations/add/ReservationAddView'
+import ReservationEditView from './modules/reservations/edit/ReservationEditView'
+import ReservationSingleView from './modules/reservations/single/ReservationSingleView'
 
 const router = createBrowserRouter([
   {

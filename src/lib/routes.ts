@@ -4,7 +4,7 @@ export const routes = {
   car: (carId = ':carId') => `/cars/${carId}`,
   carEdit: (carId = ':carId') => `/cars/${carId}/edit`,
   reservations: '/reservations',
-  reservationAdd: '/add',
+  reservationAdd: '/reservations/add',
   reservation: (reservationId = ':reservationId') =>
     `/reservations/${reservationId}`,
   reservationEdit: (reservationId = ':reservationId') =>

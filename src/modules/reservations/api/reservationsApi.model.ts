@@ -12,8 +12,8 @@ export type ReservationModel = {
 export const ReservationSchema = z.object({
   userId: z.string().min(1),
   carId: z.string().min(1),
-  startDate: z.string().min(1),
-  endDate: z.string().min(1),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime(),
   status: z.string()
 })
 
