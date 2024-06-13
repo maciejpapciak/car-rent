@@ -1,3 +1,5 @@
+import { CarModel } from '@/modules/cars/api/carsApi.model'
+import { UserModel } from '@/modules/users/api/userApi.model'
 import { z } from 'zod'
 
 export type ReservationModel = {
@@ -7,6 +9,8 @@ export type ReservationModel = {
   startDate: string
   endDate: string
   status: string
+  user: UserModel
+  car: CarModel
 }
 
 export const ReservationSchema = z.object({
@@ -18,3 +22,7 @@ export const ReservationSchema = z.object({
 })
 
 export type ReservationSchema = z.infer<typeof ReservationSchema>
+
+export type AddReservationResponse = {
+  id: number
+}

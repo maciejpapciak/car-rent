@@ -13,6 +13,7 @@ import { Edit, Eye } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import { routes } from '@/lib/routes'
 import { Button } from '@/components/ui/button'
+import { carStatusMap } from '@/data/carStatus'
 
 export function CarDatatable() {
   const { data: cars } = useSuspenseQuery(getCarListQueryOptions)
@@ -39,7 +40,7 @@ export function CarDatatable() {
               {car.year && `(${car.year})`}
             </TableCell>
             <TableCell>{car.licensePlate}</TableCell>
-            <TableCell>{car.statusId}</TableCell>
+            <TableCell>{carStatusMap?.[car.statusId].description}</TableCell>
             <TableCell>{formatCurrency(car.pricePerDay)}</TableCell>
             <TableCell>
               <div className="flex gap-2">

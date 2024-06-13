@@ -52,13 +52,7 @@ const router = createBrowserRouter([
   }
 ])
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity
-    }
-  }
-})
+const queryClient = new QueryClient()
 
 export default function App() {
   return (

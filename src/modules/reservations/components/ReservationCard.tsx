@@ -3,8 +3,20 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { Fragment, useMemo } from 'react'
 import { getReservationQueryOptions } from '../api/reservationsApi'
 import { useParams } from 'react-router'
-import { Separator } from '@/components/ui/separator'
 import dayjs from 'dayjs'
+import { ReservationModel } from '../api/reservationsApi.model'
+import { ReservationReportButton } from './ReservationReportButton'
+
+const cardConfig = (reservation: ReservationModel) => [
+  {
+    label: 'User',
+    value: `${reservation.user.firstName} ${reservation.user.lastName}`
+  },
+  {
+    label: 'Car',
+    value: `${reservation.car.make} ${reservation.car.model} (${reservation.car.licensePlate})`
+  }
+]
 
 export const ReservationCard = () => {
   const { reservationId } = useParams()
@@ -15,7 +27,7 @@ export const ReservationCard = () => {
     )
   )
 
-  const { id, startDate, endDate, ...reservationRest } = reservation
+  const { startDate, endDate } = reservation
 
   return (
     <>
@@ -24,14 +36,16 @@ export const ReservationCard = () => {
       </h1>
       <Card>
         <CardContent className="mt-4 flex flex-col gap-4">
-          {Object.entries(reservationRest).map(([key, value], i) => (
-            <Fragment key={key}>
+          {cardConfig(reservation).map(({ label, value }) => (
+            <Fragment key={label}>
               <p>
-                <strong>{key}</strong> {value}
+                <strong>{label}</strong> {value}
               </p>
-              {i !== Object.keys(reservationRest).length - 1 && <Separator />}
             </Fragment>
           ))}
+          <p>
+            <strong>Report</strong> <ReservationReportButton />
+          </p>
         </CardContent>
       </Card>
     </>

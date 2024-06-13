@@ -13,11 +13,19 @@ import { useNavigate } from 'react-router'
 import { routes } from '@/lib/routes'
 import { Button } from '@/components/ui/button'
 import dayjs from 'dayjs'
+import { getUserSelectQueryOptions } from '@/modules/users/api/userApi'
+import {
+  getCarListQueryOptions,
+  getCarSelectQueryOptions
+} from '@/modules/cars/api/carsApi'
 
 export function ReservationsDatatable() {
   const { data: reservations } = useSuspenseQuery(
     getReservationListQueryOptions
   )
+  const { data: users } = useSuspenseQuery(getUserSelectQueryOptions)
+  const { data: cars } = useSuspenseQuery(getCarSelectQueryOptions)
+
   const navigate = useNavigate()
 
   return (
@@ -40,8 +48,18 @@ export function ReservationsDatatable() {
                 .map((date) => dayjs(date).format('DD MMM HH:mm'))
                 .join(' - ')}
             </TableCell>
-            <TableCell>{reservation.carId}</TableCell>
-            <TableCell>{reservation.userId}</TableCell>
+            <TableCell>
+              {
+                cars.find((car) => Number(car.value) === reservation.carId)
+                  ?.description
+              }
+            </TableCell>
+            <TableCell>
+              {
+                users.find((user) => Number(user.value) === reservation.userId)
+                  ?.description
+              }
+            </TableCell>
             <TableCell>
               <div className="flex gap-2">
                 <Button
@@ -51,15 +69,6 @@ export function ReservationsDatatable() {
                   size={'sm'}
                 >
                   <Eye />
-                </Button>
-                <Button
-                  size={'sm'}
-                  variant={'outline'}
-                  onClick={() =>
-                    navigate(routes.reservationEdit(String(reservation.id)))
-                  }
-                >
-                  <Edit />
                 </Button>
               </div>
             </TableCell>

@@ -51,9 +51,11 @@ const ReservationEditForm = () => {
 
   const mutation = useMutation({
     mutationFn: editReservation,
-    onSuccess: (res) => {
-      queryClient.removeQueries(getReservationQueryOptions(res.reservationId))
-      navigate(routes.car(String(res.reservationId)))
+    onSuccess: () => {
+      queryClient.removeQueries(
+        getReservationQueryOptions(Number(reservationId))
+      )
+      navigate(routes.car(String(reservationId)))
     }
   })
 

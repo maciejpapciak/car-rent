@@ -15,7 +15,11 @@ import { routes } from '@/lib/routes'
 const CarEditView = () => {
   return (
     <div className={cn('flex flex-col gap-8')}>
-      <h1 className="scroll-m-20 text-2xl font-bold tracking-tight lg:text-3xl">
+      <h1
+        className={cn(
+          'scroll-m-20 text-2xl font-bold tracking-tight lg:text-3xl'
+        )}
+      >
         Edit a car
       </h1>
       <Suspense fallback={<Spinner />}>
@@ -40,15 +44,16 @@ const EditCarForm = () => {
     make: car.make,
     model: car.model,
     pricePerDay: String(car.pricePerDay),
-    statusId: String(car.statusId),
+    //@ts-expect-error
+    statusId: car.statusId.toString(),
     year: String(car.year)
   }
 
   const mutation = useMutation({
     mutationFn: editCar,
-    onSuccess: (res) => {
-      queryClient.removeQueries(getCarQueryOptions(res.carId))
-      navigate(routes.car(String(res.carId)))
+    onSuccess: () => {
+      queryClient.removeQueries(getCarQueryOptions(Number(carId)))
+      navigate(routes.car(carId))
     }
   })
 

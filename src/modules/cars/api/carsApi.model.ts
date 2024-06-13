@@ -15,8 +15,12 @@ export const CarSchema = z.object({
   model: z.string().min(1),
   year: z.string().min(1),
   licensePlate: z.string().min(1),
-  statusId: z.string().min(1),
+  statusId: z.string().transform(Number),
   pricePerDay: z.string().min(1)
 })
 
 export type CarSchema = z.infer<typeof CarSchema>
+
+export type AddCarResponse = {
+  id: number
+}
